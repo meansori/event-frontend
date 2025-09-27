@@ -23,7 +23,7 @@ const ModernLanding = () => {
           <div className="nav-content">
             <div className="nav-brand">
               <div className="brand-logo">📊</div>
-              <span className="brand-text">AttendancePro</span>
+              <span className="brand-text">IMANPRO</span>
             </div>
             <div className="nav-links">
               <a href="#features">Features</a>
@@ -332,7 +332,7 @@ const ModernLanding = () => {
             <Col lg={4} className="mb-4">
               <div className="footer-brand">
                 <div className="brand-logo">📊</div>
-                <span className="brand-text">AttendancePro</span>
+                <span className="brand-text">IMANPRO</span>
               </div>
               <p className="footer-description">
                 The modern platform for community management and attendance tracking.
@@ -414,7 +414,7 @@ const ModernLanding = () => {
           <hr />
           <Row>
             <Col md={6}>
-              <p className="copyright">&copy; 2024 AttendancePro. All rights reserved.</p>
+              <p className="copyright">&copy; 2024 IMANPRO. All rights reserved.</p>
             </Col>
             <Col md={6} className="text-md-end">
               <div className="footer-links">

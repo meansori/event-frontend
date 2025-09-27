@@ -1,0 +1,273 @@
+/* File: src/components/Dashboard/ModernDashboard.css */
+.modern-dashboard {
+  background: var(--gray-50);
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.dashboard-header {
+  margin-bottom: 2rem;
+}
+
+.header-content h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin-bottom: 0.5rem;
+}
+
+.header-content p {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+/* Stat Cards */
+.stat-card {
+  height: 100%;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-icon {
+  font-size: 2.5rem;
+  opacity: 0.9;
+}
+
+.stat-info h3 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.stat-title {
+  color: var(--gray-600);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.stat-change {
+  margin-left: auto;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.stat-change.positive {
+  background: var(--success-50);
+  color: var(--success-600);
+}
+
+.stat-change.negative {
+  background: var(--error-50);
+  color: var(--error-600);
+}
+
+/* Events List */
+.card-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.events-list {
+  space-y: 1rem;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  transition: background 0.3s ease;
+}
+
+.event-item:hover {
+  background: var(--gray-50);
+}
+
+.event-icon {
+  font-size: 1.5rem;
+}
+
+.event-details h6 {
+  margin: 0;
+  color: var(--gray-900);
+  font-weight: 600;
+}
+
+.event-details p {
+  margin: 0;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.event-status {
+  margin-left: auto;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-lg);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.event-status.scheduled {
+  background: var(--primary-50);
+  color: var(--primary-600);
+}
+
+.event-status.ongoing {
+  background: var(--warning-50);
+  color: var(--warning-600);
+}
+
+.event-status.completed {
+  background: var(--success-50);
+  color: var(--success-600);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quick-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--gray-700);
+  text-align: left;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.quick-action-btn:hover {
+  border-color: var(--primary-500);
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: var(--gray-700);
+}
+
+.action-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.action-content h6 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.action-content p {
+  margin: 0;
+  color: var(--gray-600);
+  font-size: 0.75rem;
+}
+
+.action-arrow {
+  margin-left: auto;
+  color: var(--gray-400);
+  font-weight: 600;
+}
+
+/* Activity List */
+.activity-list {
+  space-y: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  align-items: start;
+  gap: 1rem;
+  padding: 0.75rem 0;
+}
+
+.activity-icon {
+  font-size: 1.25rem;
+  margin-top: 0.25rem;
+}
+
+.activity-content p {
+  margin: 0;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+}
+
+.activity-content strong {
+  color: var(--gray-900);
+}
+
+.activity-time {
+  color: var(--gray-500);
+  font-size: 0.75rem;
+  margin-top: 0.25rem;
+  display: block;
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h6 {
+  color: var(--gray-700);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state p {
+  color: var(--gray-600);
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dashboard-header h1 {
+    font-size: 2rem;
+  }
+
+  .stat-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .stat-change {
+    margin-left: 0;
+  }
+
+  .quick-action-btn {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .action-arrow {
+    margin-left: 0;
+  }
+}

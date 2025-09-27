@@ -1,199 +1,190 @@
-// File: src/App.js (Updated)
+// File: src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
+
+// Modern Components
 import ModernLanding from "./components/Landing/ModernLanding";
-import AppNavbar from "./components/Layout/Navbar";
-import Sidebar from "./components/Layout/Sidebar";
-import Login from "./components/Auth/Login";
-import Register from "./components/Auth/Register";
-import EventList from "./components/Events/EventList";
-import EventDetail from "./components/Events/EventDetail";
-import ParticipantList from "./components/Participants/ParticipantList";
-import AttendanceReport from "./components/Attendance/AttendanceReport";
-import BulkAttendance from "./components/Attendance/BulkAttendance";
+import ModernLogin from "./components/Auth/ModernLogin";
+import ModernRegister from "./components/Auth/ModernRegister";
+import ModernDashboard from "./components/Dashboard/ModernDashboard";
+import ModernEventList from "./components/Events/ModernEventList";
+import ModernEventDetail from "./components/Events/ModernEventDetail";
+import ModernParticipantList from "./components/Participants/ModernParticipantList";
+import ModernParticipantForm from "./components/Participants/ModernParticipantForm";
+import ModernBulkAttendance from "./components/Attendance/ModernBulkAttendance";
+import ModernAttendanceReport from "./components/Attendance/ModernAttendanceReport";
+
+// Layout Components
+import ModernNavbar from "./components/Layout/ModernNavbar";
+import ModernSidebar from "./components/Layout/ModernSidebar";
+
+// Styles
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./styles/DesignSystem.css";
 import "./styles/App.css";
 
+// Protected Route Component
 const ProtectedRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div className="d-flex justify-content-center align-items-center min-vh-100">Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="modern-loading-container">
+          <div className="modern-spinner">
+            <div className="spinner-circle"></div>
+            <div className="spinner-circle"></div>
+            <div className="spinner-circle"></div>
+          </div>
+          <span className="loading-text">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return isAuthenticated ? children : <Navigate to="/landing" />;
 };
 
+// Public Route Component (for auth pages when already logged in)
 const PublicRoute = ({ children }) => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading) {
-    return <div className="d-flex justify-content-center align-items-center min-vh-100">Loading...</div>;
+    return (
+      <div className="d-flex justify-content-center align-items-center min-vh-100">
+        <div className="modern-loading-container">
+          <div className="modern-spinner">
+            <div className="spinner-circle"></div>
+            <div className="spinner-circle"></div>
+            <div className="spinner-circle"></div>
+          </div>
+          <span className="loading-text">Loading...</span>
+        </div>
+      </div>
+    );
   }
 
   return !isAuthenticated ? children : <Navigate to="/" />;
 };
 
+// Dashboard Layout Component
 const DashboardLayout = ({ children }) => {
   return (
-    <>
-      <AppNavbar />
-      <div className="d-flex">
-        <Sidebar />
-        <div className="flex-grow-1 p-4">{children}</div>
+    <div className="modern-app">
+      <ModernNavbar />
+      <div className="dashboard-container">
+        <ModernSidebar />
+        <main className="main-content">{children}</main>
       </div>
-    </>
+    </div>
   );
 };
 
-const Dashboard = () => {
-  return (
-    <DashboardLayout>
-      <h2>Dashboard</h2>
-      <p>Welcome to Community Attendance System</p>
-      <div className="row">
-        <div className="col-md-3 mb-4">
-          <div className="card bg-primary text-white">
-            <div className="card-body">
-              <h5>Events</h5>
-              <p>Manage your community events</p>
-              <a href="/events" className="text-white">
-                View Events →
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card bg-success text-white">
-            <div className="card-body">
-              <h5>Participants</h5>
-              <p>Manage community members</p>
-              <a href="/participants" className="text-white">
-                View Participants →
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card bg-warning text-white">
-            <div className="card-body">
-              <h5>Bulk Attendance</h5>
-              <p>Record attendance in bulk</p>
-              <a href="/bulk-attendance" className="text-white">
-                Quick Record →
-              </a>
-            </div>
-          </div>
-        </div>
-        <div className="col-md-3 mb-4">
-          <div className="card bg-info text-white">
-            <div className="card-body">
-              <h5>Reports</h5>
-              <p>View attendance reports</p>
-              <a href="/reports" className="text-white">
-                View Reports →
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </DashboardLayout>
-  );
-};
-
+// Main App Content with Routing
 const AppContent = () => {
   return (
     <Router>
       <div className="App">
         <Routes>
-          {/* Public routes */}
+          {/* Public Routes */}
           <Route path="/landing" element={<ModernLanding />} />
+
           <Route
             path="/login"
             element={
               <PublicRoute>
-                <Login />
-              </PublicRoute>
-            }
-          />
-          <Route
-            path="/register"
-            element={
-              <PublicRoute>
-                <Register />
+                <ModernLogin />
               </PublicRoute>
             }
           />
 
-          {/* Protected routes */}
+          <Route
+            path="/register"
+            element={
+              <PublicRoute>
+                <ModernRegister />
+              </PublicRoute>
+            }
+          />
+
+          {/* Protected Routes - Dashboard Layout */}
           <Route
             path="/"
             element={
               <ProtectedRoute>
-                <Dashboard />
+                <DashboardLayout>
+                  <ModernDashboard />
+                </DashboardLayout>
               </ProtectedRoute>
             }
           />
+
           <Route
             path="/events"
             element={
               <ProtectedRoute>
                 <DashboardLayout>
-                  <EventList />
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/events/:id"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <EventDetail />
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/participants"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <ParticipantList />
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/reports"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <AttendanceReport />
-                </DashboardLayout>
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/bulk-attendance"
-            element={
-              <ProtectedRoute>
-                <DashboardLayout>
-                  <BulkAttendance />
+                  <ModernEventList />
                 </DashboardLayout>
               </ProtectedRoute>
             }
           />
 
-          {/* Redirect root to landing */}
+          <Route
+            path="/events/:id"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ModernEventDetail />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/participants"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ModernParticipantList />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/bulk-attendance"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ModernBulkAttendance />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/reports"
+            element={
+              <ProtectedRoute>
+                <DashboardLayout>
+                  <ModernAttendanceReport />
+                </DashboardLayout>
+              </ProtectedRoute>
+            }
+          />
+
+          {/* Redirects */}
           <Route path="/" element={<Navigate to="/landing" />} />
+          <Route path="*" element={<Navigate to="/landing" />} />
         </Routes>
       </div>
     </Router>
   );
 };
 
+// Main App Component
 function App() {
   return (
     <AuthProvider>

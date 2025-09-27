@@ -1,0 +1,482 @@
+/* File: src/components/Attendance/ModernAttendanceForm.css */
+.modern-modal .modal-content {
+  border-radius: var(--radius-xl);
+  border: none;
+  box-shadow: var(--shadow-xl);
+}
+
+.modern-modal-header {
+  border-bottom: 1px solid var(--gray-200);
+  padding: 1.5rem 2rem;
+  background: var(--gray-50);
+}
+
+.modern-modal-header .modal-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--gray-900);
+  margin: 0;
+}
+
+.modern-modal-body {
+  padding: 2rem;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.modern-modal-footer {
+  border-top: 1px solid var(--gray-200);
+  padding: 1.5rem 2rem;
+  gap: 1rem;
+}
+
+.modern-alert {
+  border-radius: var(--radius-lg);
+  border: none;
+  margin-bottom: 1.5rem;
+}
+
+.available-participants {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+}
+
+.participant-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid var(--gray-200);
+  transition: background-color 0.3s ease;
+}
+
+.participant-item:last-child {
+  border-bottom: none;
+}
+
+.participant-item:hover {
+  background: var(--gray-50);
+}
+
+.stat-card.mini {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+}
+
+.stat-card.mini .stat-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  display: block;
+  line-height: 1;
+}
+
+.stat-card.mini .stat-label {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.attendance-table-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+}
+
+.attendance-table {
+  margin: 0;
+  min-width: 600px;
+}
+
+.attendance-table th {
+  background: var(--gray-50);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.participant-info strong {
+  color: var(--gray-900);
+}
+
+.status-select {
+  border: 2px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.status-select:focus {
+  border-color: var(--primary-500);
+  outline: none;
+}
+
+.notes-input {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  min-width: 150px;
+}
+
+.notes-input:focus {
+  border-color: var(--primary-500);
+  outline: none;
+}
+
+.empty-state.mini {
+  padding: 2rem;
+  text-align: center;
+}
+
+.empty-state.mini .empty-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+/* File: src/components/Attendance/ModernAttendanceReport.css */
+/* Tambahkan/Perbaiki bagian Line Chart */
+
+/* Line Chart Styles */
+.line-chart-container {
+  padding: 1rem 0;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--gray-700);
+  padding: 0.5rem 1rem;
+  background: var(--gray-50);
+  border-radius: var(--radius-lg);
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.legend-color.present {
+  background: var(--success-500);
+  border: 2px solid var(--success-300);
+}
+.legend-color.late {
+  background: var(--warning-500);
+  border: 2px solid var(--warning-300);
+}
+.legend-color.absent {
+  background: var(--error-500);
+  border: 2px solid var(--error-300);
+}
+
+.chart-area {
+  background: white;
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  border: 1px solid var(--gray-200);
+  min-height: 400px;
+}
+
+.chart-grid {
+  display: flex;
+  height: 300px;
+  gap: 1rem;
+  position: relative;
+}
+
+.y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 1rem;
+  border-right: 2px solid var(--gray-300);
+  min-width: 50px;
+}
+
+.y-label {
+  font-size: 0.8rem;
+  color: var(--gray-600);
+  text-align: right;
+  font-weight: 600;
+}
+
+.chart-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.chart-lines {
+  flex: 1;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 3rem;
+  position: relative;
+  margin-left: 10px;
+}
+
+.chart-lines::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gray-400);
+  z-index: 1;
+}
+
+.chart-lines::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--gray-400);
+  z-index: 1;
+}
+
+.data-points {
+  flex: 1;
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  gap: 2px;
+  position: relative;
+  max-width: 40px;
+}
+
+.data-points:hover::before {
+  content: attr(title);
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--gray-900);
+  color: white;
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.data-points:hover::after {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--gray-900);
+}
+
+.line-segment {
+  width: 12px;
+  border-radius: 3px 3px 0 0;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.line-segment:hover {
+  transform: scaleY(1.1);
+  opacity: 0.9;
+}
+
+.line-segment.present {
+  background: linear-gradient(to top, var(--success-500), var(--success-400));
+  border: 1px solid var(--success-600);
+  z-index: 3;
+}
+
+.line-segment.late {
+  background: linear-gradient(to top, var(--warning-500), var(--warning-400));
+  border: 1px solid var(--warning-600);
+  z-index: 2;
+}
+
+.line-segment.absent {
+  background: linear-gradient(to top, var(--error-500), var(--error-400));
+  border: 1px solid var(--error-600);
+  z-index: 1;
+}
+
+.x-axis {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 1rem;
+  margin-left: 10px;
+  border-top: 2px solid var(--gray-300);
+}
+
+.x-label {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  font-weight: 600;
+  text-align: center;
+  flex: 1;
+  min-width: 30px;
+}
+
+/* Horizontal grid lines */
+.chart-content::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 100% 25%,
+    linear-gradient(to bottom, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 100% 50%,
+    linear-gradient(to bottom, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 100% 75%;
+  pointer-events: none;
+}
+
+/* Responsive chart */
+@media (max-width: 1200px) {
+  .chart-lines {
+    gap: 6px;
+  }
+
+  .line-segment {
+    width: 10px;
+  }
+
+  .x-label {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .chart-area {
+    padding: 1rem;
+  }
+
+  .chart-grid {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .y-axis {
+    flex-direction: row;
+    justify-content: space-between;
+    border-right: none;
+    border-bottom: 2px solid var(--gray-300);
+    padding-right: 0;
+    padding-bottom: 1rem;
+    min-width: auto;
+    margin-bottom: 1rem;
+  }
+
+  .chart-lines {
+    flex-direction: row;
+    gap: 4px;
+    margin-left: 0;
+  }
+
+  .data-points {
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    max-width: none;
+  }
+
+  .line-segment {
+    width: 100%;
+    height: 12px !important;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .x-axis {
+    margin-left: 0;
+  }
+
+  .chart-content::before {
+    background: linear-gradient(to right, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 25% 100%,
+      linear-gradient(to right, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 50% 100%,
+      linear-gradient(to right, transparent 0%, transparent 99%, var(--gray-200) 99%) 0% 0% / 75% 100%;
+  }
+}
+
+@media (max-width: 576px) {
+  .chart-legend {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .legend-item {
+    width: 100%;
+    max-width: 200px;
+    justify-content: center;
+  }
+
+  .chart-lines {
+    gap: 2px;
+  }
+
+  .line-segment {
+    width: 100%;
+    height: 10px !important;
+  }
+
+  .x-label {
+    font-size: 0.65rem;
+    min-width: 20px;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .modern-modal-body {
+    padding: 1.5rem;
+  }
+
+  .modern-modal-header {
+    padding: 1rem 1.5rem;
+  }
+
+  .modern-modal-footer {
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+  }
+
+  .attendance-table-container {
+    font-size: 0.875rem;
+  }
+
+  .participant-item {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}

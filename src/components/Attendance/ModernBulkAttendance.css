@@ -1,0 +1,226 @@
+/* File: src/components/Attendance/ModernBulkAttendance.css */
+.modern-bulk-attendance {
+  background: var(--gray-50);
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+/* Event Info */
+.event-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.event-basic h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--gray-900);
+}
+
+.event-meta {
+  display: flex;
+  gap: 1rem;
+  color: var(--gray-600);
+  font-size: 0.875rem;
+}
+
+.status-badge {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-scheduled {
+  background: var(--primary-50);
+  color: var(--primary-600);
+}
+
+.status-ongoing {
+  background: var(--warning-50);
+  color: var(--warning-600);
+}
+
+.status-completed {
+  background: var(--success-50);
+  color: var(--success-600);
+}
+
+/* Quick Actions */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.action-btn {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+  transition: all 0.3s ease;
+}
+
+.action-btn.present:hover {
+  border-color: var(--success-500);
+  background: var(--success-50);
+}
+
+.action-btn.late:hover {
+  border-color: var(--warning-500);
+  background: var(--warning-50);
+}
+
+.action-btn.absent:hover {
+  border-color: var(--error-500);
+  background: var(--error-50);
+}
+
+/* Attendance Table */
+.attendance-table-container {
+  overflow-x: auto;
+}
+
+.attendance-table {
+  width: 100%;
+  min-width: 800px;
+}
+
+.attendance-table th {
+  white-space: nowrap;
+}
+
+.participant-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.participant-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+.participant-name {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.participant-institution {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+}
+
+.contact-info {
+  font-size: 0.875rem;
+}
+
+.email,
+.phone {
+  margin-bottom: 0.25rem;
+}
+
+.status-select {
+  border: 2px solid;
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.notes-input {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 0.5rem;
+  font-size: 0.875rem;
+  min-width: 150px;
+}
+
+.toggle-btn {
+  padding: 0.375rem 0.75rem;
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  background: white;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+}
+
+/* Confirmation Modal */
+.confirmation-content {
+  text-align: center;
+  padding: 1rem;
+}
+
+.confirmation-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.stats-summary {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 1.5rem 0;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.stat-dot.present {
+  background: var(--success-500);
+}
+.stat-dot.late {
+  background: var(--warning-500);
+}
+.stat-dot.absent {
+  background: var(--error-500);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .event-info {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .event-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .quick-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .action-btn {
+    flex: 1;
+    min-width: 120px;
+  }
+
+  .stats-summary {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}

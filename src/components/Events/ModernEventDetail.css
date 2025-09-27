@@ -1,0 +1,277 @@
+/* File: src/components/Events/ModernEventDetail.css (Updated) */
+.modern-event-detail {
+  background: var(--gray-50);
+  min-height: 100vh;
+  padding: 2rem 0;
+}
+
+.event-meta {
+  color: var(--gray-600);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.attendance-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.event-details-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-label {
+  font-weight: 600;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-card {
+  background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
+  border: 1px solid var(--primary-200);
+}
+
+.attendance-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.attendance-stats .stat-item {
+  text-align: center;
+  padding: 1rem;
+  background: white;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--gray-200);
+  transition: transform 0.3s ease;
+}
+
+.attendance-stats .stat-item:hover {
+  transform: translateY(-2px);
+}
+
+.attendance-stats .stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--gray-900);
+  line-height: 1;
+}
+
+.attendance-stats .stat-label {
+  font-size: 0.75rem;
+  color: var(--gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-top: 0.25rem;
+}
+
+.attendance-stats .stat-item.total {
+  grid-column: span 2;
+  background: var(--primary-500);
+  color: white;
+}
+
+.attendance-stats .stat-item.total .stat-value,
+.attendance-stats .stat-item.total .stat-label {
+  color: white;
+}
+
+.attendance-rate {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-lg);
+}
+
+.rate-label {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  margin-bottom: 0.25rem;
+}
+
+.rate-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-600);
+}
+
+.participants-list {
+  space-y: 1rem;
+}
+
+.participant-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  background: white;
+  border: 1px solid var(--gray-200);
+  transition: all 0.3s ease;
+}
+
+.participant-item:hover {
+  border-color: var(--primary-500);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.participant-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.participant-info {
+  flex: 1;
+}
+
+.participant-info h6 {
+  margin: 0 0 0.25rem 0;
+  color: var(--gray-900);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.participant-meta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.participant-meta span {
+  font-size: 0.875rem;
+  color: var(--gray-600);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.attendance-status {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  gap: 0.25rem;
+  min-width: 120px;
+}
+
+.attendance-time {
+  font-size: 0.75rem;
+  color: var(--gray-500);
+}
+
+.modern-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Empty State Improvements */
+.empty-state {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--gray-500);
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  opacity: 0.5;
+}
+
+.empty-state h6 {
+  color: var(--gray-600);
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.empty-state p {
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+  color: var(--gray-600);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .event-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .attendance-actions {
+    flex-direction: column;
+  }
+
+  .participant-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .attendance-status {
+    align-items: center;
+    min-width: auto;
+  }
+
+  .participant-meta {
+    justify-content: center;
+  }
+
+  .modern-card-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: stretch;
+  }
+
+  .attendance-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .attendance-stats .stat-item.total {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 576px) {
+  .participant-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .attendance-stats .stat-value {
+    font-size: 1.25rem;
+  }
+
+  .rate-value {
+    font-size: 1.5rem;
+  }
+}

@@ -1,0 +1,6 @@
+line chart masih error
+perbaikan fitur upcomming :
+- di bagian participants datanya awalnya card di ubah menjadi tabel saja
+- bagian event cardnya dibuat flex row saja agar tidak terlalu besar
+- tambahkan halaman untuk profile admin
+- ada admin super yg fiturnya sama kayak admin biasa tapi bisa management admin biasa
