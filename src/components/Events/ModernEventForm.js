@@ -23,7 +23,7 @@ const ModernEventForm = ({ show, onHide, event, onSuccess }) => {
       setFormData({
         title: event.title || "",
         description: event.description || "",
-        event_date: event.event_date || "",
+        event_date: event.event_date.split("T")[0] || "",
         event_time: event.event_time || "",
         location: event.location || "",
         max_participants: event.max_participants || "",
