@@ -1,0 +1,32 @@
+/* File: src/styles/App.css */
+.min-vh-100 {
+  min-height: 100vh;
+}
+
+.card {
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.table th {
+  border-top: none;
+  font-weight: 600;
+}
+
+.badge {
+  font-size: 0.75em;
+}
+
+.sidebar {
+  min-height: calc(100vh - 76px);
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    min-height: auto;
+    width: 100% !important;
+  }
+}
