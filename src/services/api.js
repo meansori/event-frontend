@@ -1,4 +1,4 @@
-// File: src/services/api.js
+// File: src/services/api.js (Updated with better error handling)
 import axios from "axios";
 
 const API_BASE_URL = "http://localhost:4000/api/v1";
@@ -9,6 +9,7 @@ const api = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  timeout: 10000, // 10 seconds timeout
 });
 
 // Request interceptor to add auth token
@@ -34,6 +35,16 @@ api.interceptors.response.use(
       localStorage.removeItem("admin");
       window.location.href = "/login";
     }
+
+    // Enhanced error logging
+    console.error("API Error:", {
+      url: error.config?.url,
+      method: error.config?.method,
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message,
+    });
+
     return Promise.reject(error);
   }
 );
@@ -67,6 +78,28 @@ export const attendanceAPI = {
   record: (attendanceData) => api.post("/attendance/record", attendanceData),
   recordBulk: (bulkData) => api.post("/attendance/record/bulk", bulkData),
   getReport: (eventId) => api.get(`/attendance/report/${eventId}`),
+};
+
+// QR Code API
+export const qrAPI = {
+  generate: (eventId) => api.post("/attendance/qr/generate", { event_id: eventId }),
+  getEventQR: (eventId) => api.get(`/attendance/qr/event/${eventId}`),
+  scan: (qrData, participantData) =>
+    api.post("/attendance/qr/scan", {
+      qr_data: qrData,
+      participant_data: participantData,
+    }),
+  attend: (qrData, participantInfo) =>
+    api.post("/attendance/qr/attend", {
+      qr_data: qrData,
+      ...participantInfo,
+    }),
+};
+
+// Test API connection
+export const testAPI = {
+  health: () => api.get("/health"),
+  testAuth: () => api.get("/auth/test"),
 };
 
 export default api;

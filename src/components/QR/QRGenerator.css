@@ -1,0 +1,153 @@
+/* File: src/components/QR/QRGenerator.css (Simplified) */
+.qr-generator-modal .modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.qr-generator-modal .modal-header {
+  border-bottom: 1px solid #e9ecef;
+  padding: 20px 24px;
+}
+
+.qr-generator-modal .modal-body {
+  padding: 24px;
+}
+
+.qr-info-card,
+.qr-display-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.qr-info-card .card-body,
+.qr-display-card .card-body {
+  padding: 20px;
+}
+
+.qr-info-list .info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.qr-info-list .label {
+  font-weight: 600;
+  color: #666;
+  min-width: 100px;
+}
+
+.qr-info-list .value {
+  color: #333;
+  text-align: right;
+}
+
+.qr-code-container {
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 250px;
+}
+
+.qr-code-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.qr-data-fallback {
+  padding: 30px 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 2px dashed #dee2e6;
+  text-align: center;
+}
+
+.qr-data-preview {
+  background: white;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #e9ecef;
+  margin-top: 10px;
+  text-align: left;
+}
+
+.qr-placeholder {
+  padding: 40px 20px;
+  color: #666;
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-placeholder h6 {
+  color: #333;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.qr-instructions {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 16px;
+}
+
+.generate-btn,
+.download-btn {
+  padding: 10px 16px;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.generate-btn:hover,
+.download-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Spinning animation */
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .qr-generator-modal .modal-dialog {
+    margin: 10px;
+  }
+
+  .qr-code-container {
+    padding: 15px;
+    min-height: 200px;
+  }
+
+  .qr-info-list .info-item {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .qr-info-list .value {
+    text-align: left;
+    margin-top: 4px;
+  }
+}

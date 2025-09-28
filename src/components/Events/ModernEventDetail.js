@@ -1,11 +1,13 @@
-// File: src/components/Events/ModernEventDetail.js (Updated)
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Button, Badge, Alert } from "react-bootstrap";
-import { eventsAPI, participantsAPI } from "../../services/api";
+import { eventsAPI, participantsAPI, testAPI } from "../../services/api";
 import { formatDate, formatTime, formatDateTime, getAttendanceColor } from "../../utils/helpers";
 import ModernLoadingSpinner from "../Common/ModernLoadingSpinner";
-import ModernAttendanceForm from "../Attendance/ModernAttendanceForm"; // Tambahkan import ini
+import ModernAttendanceForm from "../Attendance/ModernAttendanceForm";
+import QRGenerator from "../QR/QRGenerator";
+import QRScanner from "../QR/QRScanner";
+import { QrCode, Scan, RefreshCw } from "lucide-react";
 import "./ModernEventDetail.css";
 
 const ModernEventDetail = () => {
@@ -15,27 +17,56 @@ const ModernEventDetail = () => {
   const [participants, setParticipants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [showAttendanceModal, setShowAttendanceModal] = useState(false); // State untuk modal
+  const [showAttendanceModal, setShowAttendanceModal] = useState(false);
+  const [showQRGenerator, setShowQRGenerator] = useState(false);
+  const [showQRScanner, setShowQRScanner] = useState(false);
+  const [retryCount, setRetryCount] = useState(0);
 
   useEffect(() => {
     loadEventDetails();
-  }, [id]);
+  }, [id, retryCount]);
 
   const loadEventDetails = async () => {
+    setLoading(true);
+    setError("");
+
     try {
+      // Test API connection first
+      await testAPI.health();
+
       const [eventResponse, participantsResponse] = await Promise.all([
-        eventsAPI.getById(id),
-        participantsAPI.getByEvent(id),
+        eventsAPI.getById(id).catch((err) => {
+          console.error("Event API Error:", err);
+          throw new Error(`Failed to load event: ${err.response?.data?.message || err.message}`);
+        }),
+        participantsAPI.getByEvent(id).catch((err) => {
+          console.error("Participants API Error:", err);
+          // Continue without participants if this fails
+          return { data: { participants: [] } };
+        }),
       ]);
 
-      setEvent(eventResponse.data.event);
-      setParticipants(participantsResponse.data.participants);
+      setEvent(eventResponse.data.event || eventResponse.data);
+      setParticipants(participantsResponse.data.participants || []);
     } catch (error) {
-      setError("Failed to load event details");
       console.error("Error loading event details:", error);
+
+      if (error.response?.status === 404) {
+        setError("Event not found. It may have been deleted.");
+      } else if (error.response?.status === 403) {
+        setError("You don't have permission to view this event.");
+      } else if (error.message?.includes("Network Error")) {
+        setError("Cannot connect to server. Please check if backend is running.");
+      } else {
+        setError(error.message || "Failed to load event details. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleRetry = () => {
+    setRetryCount((prev) => prev + 1);
   };
 
   const handleTakeAttendance = () => {
@@ -47,9 +78,21 @@ const ModernEventDetail = () => {
     navigate("/bulk-attendance");
   };
 
+  const handleGenerateQR = () => {
+    setShowQRGenerator(true);
+  };
+
+  const handleScanQR = () => {
+    setShowQRScanner(true);
+  };
+
   const handleAttendanceSuccess = () => {
     setShowAttendanceModal(false);
-    loadEventDetails(); // Reload data untuk update terbaru
+    loadEventDetails();
+  };
+
+  const handleScanSuccess = (result) => {
+    loadEventDetails();
   };
 
   // Calculate stats from participants data
@@ -73,8 +116,40 @@ const ModernEventDetail = () => {
   const stats = getAttendanceStats();
 
   if (loading) return <ModernLoadingSpinner />;
-  if (error) return <Alert variant="danger">{error}</Alert>;
-  if (!event) return <Alert variant="warning">Event not found</Alert>;
+
+  if (error && !event) {
+    return (
+      <Container className="mt-4">
+        <Alert variant="danger">
+          <h5>Error Loading Event</h5>
+          <p>{error}</p>
+          <div className="d-flex gap-2">
+            <Button variant="primary" onClick={handleRetry}>
+              <RefreshCw size={16} className="me-2" />
+              Retry
+            </Button>
+            <Button variant="outline-secondary" onClick={() => navigate("/events")}>
+              Back to Events
+            </Button>
+          </div>
+        </Alert>
+      </Container>
+    );
+  }
+
+  if (!event) {
+    return (
+      <Container className="mt-4">
+        <Alert variant="warning">
+          <h5>Event Not Found</h5>
+          <p>The event you're looking for doesn't exist or may have been deleted.</p>
+          <Button variant="primary" onClick={() => navigate("/events")}>
+            Back to Events
+          </Button>
+        </Alert>
+      </Container>
+    );
+  }
 
   return (
     <div className="modern-event-detail">
@@ -95,16 +170,20 @@ const ModernEventDetail = () => {
                   ← Back to Events
                 </Button>
                 <div className="attendance-actions">
-                  <Button
-                    className="btn-modern-primary me-2"
-                    onClick={handleTakeAttendance} // Modal attendance
-                  >
+                  {/* QR Code Actions */}
+                  <Button className="btn-modern-qr me-2" onClick={handleGenerateQR}>
+                    <QrCode size={16} className="me-2" />
+                    QR Code
+                  </Button>
+                  <Button className="btn-modern-scan me-2" onClick={handleScanQR}>
+                    <Scan size={16} className="me-2" />
+                    Scan QR
+                  </Button>
+                  {/* Existing buttons */}
+                  <Button className="btn-modern-primary me-2" onClick={handleTakeAttendance}>
                     ✅ Take Attendance
                   </Button>
-                  <Button
-                    variant="outline"
-                    onClick={handleBulkAttendance} // Bulk attendance page
-                  >
+                  <Button variant="outline" onClick={handleBulkAttendance}>
                     📝 Bulk Attendance
                   </Button>
                 </div>
@@ -112,6 +191,22 @@ const ModernEventDetail = () => {
             </div>
           </Col>
         </Row>
+
+        {error && (
+          <Row className="mb-3">
+            <Col>
+              <Alert variant="warning" dismissible onClose={() => setError("")}>
+                <strong>Partial Data Loaded:</strong> {error}
+                <div className="mt-2">
+                  <Button size="sm" variant="outline-warning" onClick={handleRetry}>
+                    <RefreshCw size={14} className="me-1" />
+                    Retry Load Data
+                  </Button>
+                </div>
+              </Alert>
+            </Col>
+          </Row>
+        )}
 
         {/* Stats & Info */}
         <Row className="mb-4">
@@ -206,7 +301,17 @@ const ModernEventDetail = () => {
           </Col>
         </Row>
 
-        {/* Attendance Modal */}
+        {/* QR Code Modals */}
+        <QRGenerator event={event} show={showQRGenerator} onHide={() => setShowQRGenerator(false)} />
+
+        <QRScanner
+          event={event}
+          show={showQRScanner}
+          onHide={() => setShowQRScanner(false)}
+          onScanSuccess={handleScanSuccess}
+        />
+
+        {/* Existing Attendance Modal */}
         <ModernAttendanceForm
           show={showAttendanceModal}
           onHide={() => setShowAttendanceModal(false)}
